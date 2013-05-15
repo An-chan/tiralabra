@@ -27,6 +27,13 @@ public class Muodostelma {
         luoPalikat();
     }
     
+    public Muodostelma(Muoto muoto, Tetris peli, ArrayList<Palikka> palikat){
+        this.palikat = palikat;
+        this.muoto = muoto;
+        this.peli = peli;
+        this.putoaa = true;
+    }
+    
     public void luoPalikat(){
         // palikkamuodostelman keskikohta luodaan ruudun ylälaidan keskelle, ts. kohtaan (0, 5)
         // x-koordinaatti kasvaa alaspäin, y-koordinaatti kasvaa oikealle
@@ -321,6 +328,18 @@ public class Muodostelma {
             }
         }
         return oikX;
+    }
+    
+    /*
+     * Metodi kopioi muodostelman tekoälyn käyttötarkoituksia varten
+     * @return Muodostelma kopio tästä muodostelmasta
+     */
+    public Muodostelma kloonaa(){
+        return new Muodostelma(this.muoto, this.peli, this.palikat);
+    }
+    
+    public Muoto getMuoto(){
+        return this.muoto;
     }
 
 }
