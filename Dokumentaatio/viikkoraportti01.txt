@@ -8,4 +8,6 @@ Olen päättänyt toteuttaa tekoälyn luomalla mahdollisista siirroista siirto-olioi
 
 Tällä viikolla olen keskittynyt enemmän algoritmin hahmottelemiseen ja tarpeellisten luokkien sekä ominaisuuksien luomiseen. Itse tekoälylle ei ole vielä yhtään testiä, sillä se ei vielä tee mitään, mutta Siirto- ja Siirtokeko-luokille on omat testinsä.
 
-Lisäksi olen toki pelaillut tetristä ja koettanut selvittää, miten itse päättelen palikoiden parhaan paikan ja millaisia sääntöjä tästä voi johtaa, sekä koettanut emuloida erilaisia tekoälyjä pelaamalla tiettyjä sääntöjä noudattaen. Lisäsin myös tetris-koodini ja kaikki sen testit github-repositorioon kehittelyä varten.  
+Lisäksi olen toki pelaillut tetristä ja koettanut selvittää, miten itse päättelen palikoiden parhaan paikan ja millaisia sääntöjä tästä voi johtaa, sekä koettanut emuloida erilaisia tekoälyjä pelaamalla tiettyjä sääntöjä noudattaen. Lisäsin myös tetris-koodini ja kaikki sen testit github-repositorioon kehittelyä varten.
+
+Epäselvää on tällä hetkellä se, miten integroin tekoälyn varsinaiseen peliin siten, että se osaa tehdä siirtonsa oikealla hetkellä, mutta tämä lienee suhteellisen suoraviivaista, kunhan sinne asti pääsen. Toinen hieman epäselvä asia on se, miten toteutan seiniä/palikoita koskettavien sivujen laskemisen, koska tarkoitushan tietenkin on olla mahdollisimman tehokas. Siihen varmaankin pätee jokin verkkoalgoritmin tapainen, mutta en ole ehtinyt paneutua asiaan vielä mitenkään merkittävästi. Erilaisia vinkkejä otetaan mielellään vastaan.
