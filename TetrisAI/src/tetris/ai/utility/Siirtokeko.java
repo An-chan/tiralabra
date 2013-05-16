@@ -25,4 +25,8 @@ public class Siirtokeko {
     public void tyhjenna(){
         this.tempKeko.clear();
     }
+    
+    public int koko(){
+        return this.tempKeko.size();
+    }
 }

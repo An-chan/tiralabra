@@ -43,11 +43,13 @@ public class DerpyAI {
                 // näillä muodoilla vain kaksi eri orientaatiota
             } else {
                 // lopuilla muodoilla kaikki neljä orientaatiota
+                putoava.putoa();
                 for (int j = 0; j < 4; j++){
                     for (int k = 0; k < j; k++){
                         putoava.kierra();
                     }
                     // lisätään kaikki eri orientaatiot siirroiksi
+                    
                 }
             }
         }
@@ -55,8 +57,10 @@ public class DerpyAI {
     
     /*
      * Metodi luo Siirto-olion kekoon lisättäväksi
+     * Toistaiseksi vaillinainen toiminnallisuus
      */
-    private Siirto laskeSiirto(){
+    private Siirto laskeSiirto(int x, int y, int kierrot){
+        
         return null;
     }
 }
