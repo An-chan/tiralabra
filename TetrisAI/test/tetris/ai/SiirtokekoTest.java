@@ -42,7 +42,7 @@ public class SiirtokekoTest {
      @Test
      public void keostaPoistoYksiTest(){
          keko.lisaa(siirto1);
-         assertEquals(siirto1, keko.pienin());
+         assertEquals(siirto1, keko.suurin());
      }
      
      @Test
@@ -56,7 +56,7 @@ public class SiirtokekoTest {
      public void keostaPoistoKaksiTest(){
          keko.lisaa(siirto2);
          keko.lisaa(siirto1);
-         assertEquals(siirto1, keko.pienin());
+         assertEquals(siirto1, keko.suurin());
      }
      
      @Test

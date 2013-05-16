@@ -31,7 +31,10 @@ public class DerpyAI {
     }
     
     /*
-     * Metodi etsii kaikki mahdolliset siirrot ja lisää ne kekoon
+     * Metodi etsii kaikki mahdolliset siirrot ja lisää ne kekoon:
+     * - Ensin lasketaan kaikki lailliset x-sijainnit, ts. sivusuuntainen liike
+     * - Toiseksi otetaan huomioon kaikki mahdolliset kierrot
+     * - Lisätään kekoon kukin mahdollinen siirto
      */
     private void etsiSiirrot(){
         for (int i = 0; i < 10; i++){
@@ -59,8 +62,8 @@ public class DerpyAI {
      * Metodi luo Siirto-olion kekoon lisättäväksi
      * Toistaiseksi vaillinainen toiminnallisuus
      */
-    private Siirto laskeSiirto(int x, int y, int kierrot){
+    private void laskeSiirto(int x, int y, int kierrot){
         
-        return null;
+        
     }
 }

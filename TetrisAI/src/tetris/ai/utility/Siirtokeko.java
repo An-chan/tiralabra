@@ -14,18 +14,32 @@ public class Siirtokeko {
         this.tempKeko = new PriorityQueue<Siirto>();
     }
     
+    /*
+     * Metodi lisää kekoon uuden siirto-olion ja varmistaa, että
+     * keko-ehto on lisäyksen jälkeen voimassa
+     */
     public void lisaa(Siirto siirto){
         this.tempKeko.add(siirto);
     }
     
-    public Siirto pienin(){
+    /*
+     * Metodi palauttaa keon suurimman siirron, ts. sen, jolla on
+     * paras kokonaispistemäärä. Huom: metodi EI poista oliota keosta!
+     */
+    public Siirto suurin(){
         return this.tempKeko.peek();
     }
     
+    /*
+     * Metodi tyhjentää keon kokonaan seuraavan siirron laskemista varten.
+     */
     public void tyhjenna(){
         this.tempKeko.clear();
     }
     
+    /*
+     * Metodi palauttaa keossa sillä hetkellä olevien siirtojen määrän.
+     */
     public int koko(){
         return this.tempKeko.size();
     }
