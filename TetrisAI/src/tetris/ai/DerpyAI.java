@@ -16,10 +16,14 @@ public class DerpyAI {
     private Muodostelma putoava;
     private Siirtokeko keko;
     
+    /*
+     * Uutta tekoälyluokkaa luotaessa tarvitaan parametrinä peli, jota sen tulee
+     * pelata. Lisäksi konstruktorissa luodaan tekoälyn optimointiin käyttämä
+     * keko ja päivitetään sen tiedot pelin tilanteesta
+     */
     public DerpyAI(Tetris peli){
         this.peli = peli;
         this.keko = new Siirtokeko();
-        this.putoava = peli.getPutoava();
         paivitaTiedot();
     }
     
@@ -27,6 +31,7 @@ public class DerpyAI {
      * Metodi päivittää pelitilanteen tekoälyn laskentaa varten
      */
     private void paivitaTiedot(){
+        this.putoava = peli.getPutoava();
         this.pelipalikat = this.peli.getPalikkaTaulukko();
     }
     
@@ -37,9 +42,9 @@ public class DerpyAI {
      * - Lisätään kekoon kukin mahdollinen siirto
      */
     private void etsiSiirrot(){
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 10; i++){ //etsii lailliset x-sijainnit
             Muodostelma muod = putoava.kloonaa();
-            //etsi lailliset x-sijainnit
+            // siirrä muodostelma oikeaan kohtaan
             if (muod.getMuoto() == Muoto.nelio){
                 // nelio-muoto aina samanlainen
                 Palikka pivot = muod.getPalikat().get(1);
