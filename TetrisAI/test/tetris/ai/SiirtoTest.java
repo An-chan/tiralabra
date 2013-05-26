@@ -48,10 +48,11 @@ public class SiirtoTest {
      
      @Test
      public void compareToTempTest(){
-         assertEquals(-1, siirtoRivi.compareTo(siirto1));
-         assertEquals(1, siirto2.compareTo(siirto1));
+         assertEquals(1, siirtoRivi.compareTo(siirto1));
+         assertEquals(-1, siirto2.compareTo(siirto1));
          assertEquals(0, siirto1.compareTo(siirto1));
      }
      
-     
+     // en ole testannut compareTo:n toimintaa sen enempää toistaiseksi koska
+     // en tiedä toteutanko ohjelman lopulta sillä vai jollakin toisella vertailutavalla
 }

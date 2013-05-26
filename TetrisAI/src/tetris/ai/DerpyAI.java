@@ -19,6 +19,7 @@ public class DerpyAI {
     public DerpyAI(Tetris peli){
         this.peli = peli;
         this.keko = new Siirtokeko();
+        this.putoava = peli.getPutoava();
         paivitaTiedot();
     }
     
@@ -27,7 +28,6 @@ public class DerpyAI {
      */
     private void paivitaTiedot(){
         this.pelipalikat = this.peli.getPalikkaTaulukko();
-        this.putoava = this.peli.getPutoava().kloonaa();
     }
     
     /*
@@ -38,21 +38,28 @@ public class DerpyAI {
      */
     private void etsiSiirrot(){
         for (int i = 0; i < 10; i++){
+            Muodostelma muod = putoava.kloonaa();
             //etsi lailliset x-sijainnit
-            if (putoava.getMuoto() == Muoto.nelio){
+            if (muod.getMuoto() == Muoto.nelio){
                 // nelio-muoto aina samanlainen
-            } else if (putoava.getMuoto() == Muoto.S || 
-                    putoava.getMuoto() == Muoto.peiliS || putoava.getMuoto() == Muoto.I){
+                Palikka pivot = muod.getPalikat().get(1);
+                laskeSiirto(pivot.getX(), pivot.getY(), 0);
+            } else if (muod.getMuoto() == Muoto.S || 
+                    muod.getMuoto() == Muoto.peiliS || muod.getMuoto() == Muoto.I){
                 // näillä muodoilla vain kaksi eri orientaatiota
+                Palikka pivot = muod.getPalikat().get(1);
+                laskeSiirto(pivot.getX(), pivot.getY(), 0);
+                muod.kierra();
+                
             } else {
                 // lopuilla muodoilla kaikki neljä orientaatiota
-                putoava.putoa();
+                muod.putoa();
                 for (int j = 0; j < 4; j++){
                     for (int k = 0; k < j; k++){
-                        putoava.kierra();
+                        muod.kierra();
                     }
-                    // lisätään kaikki eri orientaatiot siirroiksi
-                    
+                    Palikka pivot = muod.getPalikat().get(1);
+                    laskeSiirto(pivot.getX(), pivot.getY(), j);
                 }
             }
         }
@@ -63,7 +70,8 @@ public class DerpyAI {
      * Toistaiseksi vaillinainen toiminnallisuus
      */
     private void laskeSiirto(int x, int y, int kierrot){
+        //emuloidaan muodostelman pudottamista
         
-        
+        //Siirto uusi = new Siirto(y, sivut, rivit, x, kierrot);     
     }
 }

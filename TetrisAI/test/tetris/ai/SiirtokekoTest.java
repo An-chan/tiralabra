@@ -66,4 +66,30 @@ public class SiirtokekoTest {
          keko.tyhjenna();
          assertEquals(0, keko.koko());
      }
+     
+     @Test
+     public void tyhjaKekoPalauttaaNullTest(){
+         keko.lisaa(siirto1);
+         keko.tyhjenna();
+         assertEquals(null, keko.suurin());
+     }
+     
+     @Test
+     public void suurempiKekoPalauttaaSurimmanTest(){
+         Siirto siirt1 = new Siirto(0,4,0,5,1); // arvo 4
+         Siirto siirt2 = new Siirto(1,5,0,0,1); // arvo 4
+         Siirto siirt3 = new Siirto(1,2,1,2,3); // arvo 11
+         Siirto siirt4 = new Siirto(6,5,0,8,2); // arvo -1
+         Siirto siirt5 = new Siirto(4,1,1,6,2); // arvo 7
+         Siirto siirt6 = new Siirto(9,3,1,7,0); // arvo 4
+         Siirto siirt7 = new Siirto(12,2,0,3,0); // arvo -10
+         keko.lisaa(siirt1);
+         keko.lisaa(siirt2);
+         keko.lisaa(siirt3);
+         keko.lisaa(siirt4);
+         keko.lisaa(siirt5);
+         keko.lisaa(siirt6);
+         keko.lisaa(siirt7);
+         assertEquals(siirt3, keko.suurin());
+     }
 }
