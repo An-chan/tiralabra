@@ -46,25 +46,23 @@ public class DerpyAI {
             Muodostelma muod = putoava.kloonaa();
             // siirrä muodostelma oikeaan kohtaan
             if (muod.getMuoto() == Muoto.nelio){
-                // nelio-muoto aina samanlainen
-                Palikka pivot = muod.getPalikat().get(1);
-                laskeSiirto(pivot.getX(), pivot.getY(), 0);
+                // nelio-muoto aina samanlainen, ts. sillä ei ole kiertoja
+                laskeSiirto(muod, 0);
             } else if (muod.getMuoto() == Muoto.S || 
                     muod.getMuoto() == Muoto.peiliS || muod.getMuoto() == Muoto.I){
                 // näillä muodoilla vain kaksi eri orientaatiota
-                Palikka pivot = muod.getPalikat().get(1);
-                laskeSiirto(pivot.getX(), pivot.getY(), 0);
+                laskeSiirto(muod, 0);
                 muod.kierra();
-                
+                laskeSiirto(muod, 1);
             } else {
+                Muodostelma kopio = muod.kloonaa();
                 // lopuilla muodoilla kaikki neljä orientaatiota
-                muod.putoa();
+                kopio.putoa();
                 for (int j = 0; j < 4; j++){
                     for (int k = 0; k < j; k++){
-                        muod.kierra();
+                        kopio.kierra();
                     }
-                    Palikka pivot = muod.getPalikat().get(1);
-                    laskeSiirto(pivot.getX(), pivot.getY(), j);
+                    laskeSiirto(kopio, j);
                 }
             }
         }
@@ -74,9 +72,54 @@ public class DerpyAI {
      * Metodi luo Siirto-olion kekoon lisättäväksi
      * Toistaiseksi vaillinainen toiminnallisuus
      */
-    private void laskeSiirto(int x, int y, int kierrot){
-        //emuloidaan muodostelman pudottamista
-        
-        //Siirto uusi = new Siirto(y, sivut, rivit, x, kierrot);     
+    private void laskeSiirto(Muodostelma muod, int kierrot){
+        int x = muod.getPalikat().get(1).getX();
+        pudotaMuodostelma(muod);
+        int y = muod.getPalikat().get(1).getY();
+        int sivut = 0; // sivujen laskemiseen tulee oma systeeminsä
+        int rivit = 0; //rivien laskemiseen tulee oma systeeminsä
+        Siirto uusi = new Siirto(y, sivut, rivit, x, kierrot);
+        this.keko.lisaa(uusi);
+    }
+    
+    private void pudotaMuodostelma(Muodostelma muod){
+        while(muod.putoaa){
+            muod.putoa();
+        }
+    }
+    
+    private void siirraMuodostelma(Muodostelma muod, int x){
+        int pivotX = muod.getPalikat().get(1).getX();
+        if (x < pivotX){
+            while (x < pivotX){
+                int temp = pivotX;
+                muod.siirra(-1);
+                pivotX = muod.getPalikat().get(1).getX();
+                if (pivotX == temp){
+                    break;
+                }
+            }
+        } else {
+            while (pivotX < x){
+                int temp = pivotX;
+                muod.siirra(1);
+                pivotX = muod.getPalikat().get(1).getX();
+                if (pivotX == temp){
+                    break;
+                }
+            }
+        }
+    }
+    
+    public void teeSiirto(){
+        etsiSiirrot();
+        Siirto paras = this.keko.suurin();
+        int x = paras.getX();
+        int kierrot = paras.getKierrot();
+        siirraMuodostelma(this.putoava, x);
+        this.putoava.putoa();
+        for (int i = 0; i <= kierrot; i++){
+            this.putoava.kierra();
+        }
     }
 }

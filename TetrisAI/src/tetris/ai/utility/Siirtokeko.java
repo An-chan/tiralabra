@@ -11,18 +11,19 @@ public class Siirtokeko {
     private Siirto[] keko;
     private int koko;
     
-    /*
+    /**
      * Konstruktori luo uuden keon, jonka koko on nolla, mutta potentiaalinen
      * koko 40 (voi vielä muuttua)
      */
     public Siirtokeko(){
-        this.keko = new Siirto[40];
+        this.keko = new Siirto[40]; // TEE TÄSTÄ KASVAVA
         this.koko = 0;
     }
     
-    /*
+    /**
      * Metodi lisää kekoon uuden siirto-olion ja varmistaa, että
      * keko-ehto on lisäyksen jälkeen voimassa
+     * @param siirto kekoon lisättävä siirto-olio
      */
     public void lisaa(Siirto siirto){
         this.koko++;
@@ -38,9 +39,10 @@ public class Siirtokeko {
         keko[i] = siirto;
     }
     
-    /*
+    /**
      * Metodi palauttaa keon suurimman siirron, ts. sen, jolla on
      * paras kokonaispistemäärä. Huom: metodi EI poista oliota keosta!
+     * @return Siirto keon huipulla oleva siirto
      */
     public Siirto suurin(){
         if (koko == 0){
@@ -49,7 +51,7 @@ public class Siirtokeko {
         return keko[0];
     }
     
-    /*
+    /**
      * Metodi tyhjentää keon kokonaan seuraavan siirron laskemista varten.
      */
     public void tyhjenna(){
@@ -59,7 +61,7 @@ public class Siirtokeko {
         this.koko = 0;
     }
     
-    /*
+    /**
      * Metodi palauttaa keossa sillä hetkellä olevien siirtojen määrän, ts.
      * keon senhetkisen koon.
      * @return int keon koko
@@ -68,10 +70,10 @@ public class Siirtokeko {
         return this.koko;
     }
     
-    /*
+    /**
      * Palauttaa kekoehdon voimaan mikäli se on jostakin muutoksesta rikkoontunut.
-     * Parametrinä annetaan sen alkion indeksi, josta kekoehtoa lähdetään palauttamaan.
      * Metodi on rekursiivinen.
+     * @param i indeksi, josta kekoehdon palauttaminen aloitetaan
      */
     private void heapify(int i){
         int vasenLapsi = vasenLapsi(i);
@@ -98,25 +100,44 @@ public class Siirtokeko {
         }
     }
     
-    /*
-     * Vasemman lapsen indeksin laskemiseen tarkoitettu metodi
-     * @return annetun indeksin vasemman lapsen indeksi
+    /**
+     * Metodi palauttaa ja sitten poistaa keon parhaan siirron.
+     * @return keon huipulla oleva, poistettu siirto
+     */
+    public Siirto poistaSuurin(){
+        // TOTEUTA!!!
+        return null;
+    }
+    
+    /**
+     * Lisäyksessä käytettävä metodi, joka tuplaa keon koon jos se tulee täyteen
+     */
+    private void tuplaaKoko(){
+        // TOTEUTA!!!
+    }
+    
+    /**
+     * Vasemman lapsen laskemiseen tarkoitettu metodi
+     * @param i vanhemman indeksi
+     * @return int halutun lapsen indeksi
      */
     private int vasenLapsi(int i){
         return i*2;
     }
     
-    /*
-     * Oikean lapsen indeksin laskemiseen tarkoitettu metodi
-     * @return annetun indeksin oikean lapsen indeksi
+    /**
+     * Oikean lapsen laskemiseen tarkoitettu metodi
+     * @param i vanhemman indeksi
+     * @return int halutun lapsen indeksi
      */
     private int oikeaLapsi(int i){
         return i*2+1;
     }
     
-    /*
+    /**
      * Vanhemman indeksin laskemiseen tarkoitettu metodi
-     * @return annetun indeksin vanhemman indeksi
+     * @param i indeksi, jonka vanhempi halutaan löytää
+     * @return int vanhemman indeksi
      */
     private int vanhempi(int i){
         return i/2;

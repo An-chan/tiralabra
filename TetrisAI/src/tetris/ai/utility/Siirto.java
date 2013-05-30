@@ -17,12 +17,13 @@ public class Siirto implements Comparable<Siirto> {
     private int pivotX; // muodostelman "keskipalikan" x-sijainti
     private int kierrot; // tehtyjen kiertojen määrä
 
-    /*
+    /**
      * Konstruktori luo uuden Siirron ja laskee sille arvon annettujen parametrien
      * perusteella. Tällä hetkellä arvo lasketaan ottamalla ensin seiniä/palikoita
      * koskevat sivut ja miinustamalla niistä korkeus, minkä jälkeen tulokseen lisätään
      * täysien rivien määrä kymmenkertaisena, sillä niihin halutaan priorisoida.
      * Kaava saattaa vielä muuttua paljonkin.
+     * @param 
      */
     public Siirto(int korkeus, int sivut, int rivit, int x, int kierrot) {
         this.korkeus = korkeus;
@@ -37,12 +38,13 @@ public class Siirto implements Comparable<Siirto> {
         return this.arvo;
     }
 
-    /*
+    /**
      * Tilapäisesti käytössä oleva metodi, joka mahdollistaa siirtokeon
      * PriorityQueuen käytön. Priorisointi tapahtuu ensisijaisesti arvon
      * perusteella, toissijaisesti täysien rivien perusteella, sitten sivujen
      * perusteella, ja lopulta korkeuden perusteella (ts. jos arvo on sama,
      * katsotaan rivien määrää, jne.)
+     * @param 
      */
     @Override
     public int compareTo(Siirto t) {
@@ -73,7 +75,23 @@ public class Siirto implements Comparable<Siirto> {
         }
     }
     
-    /*
+    /**
+     * Palauttaa siirron x-sijainnin
+     * @return int muodostelman pivot-palikan x-koordinaatti
+     */
+    public int getX(){
+        return this.pivotX;
+    }
+    
+    /**
+     * Palauttaa siirron kierrot
+     * @return int muodostelman kiertojen määrä
+     */
+    public int getKierrot(){
+        return this.kierrot;
+    }
+    
+    /**
      * Testaukseen tarkoitettu toString, joka kertoo siirron ominaisuuksista
      * sitä tulostettaessa
      * @return String Siirron tekstiesitys
