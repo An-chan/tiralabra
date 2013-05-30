@@ -16,7 +16,7 @@ public class Siirtokeko {
      * koko 40 (voi vielä muuttua)
      */
     public Siirtokeko(){
-        this.keko = new Siirto[40]; // TEE TÄSTÄ KASVAVA
+        this.keko = new Siirto[10];
         this.koko = 0;
     }
     
@@ -30,6 +30,9 @@ public class Siirtokeko {
         if ( koko == 1){
             keko[0] = siirto;
             return;
+        }
+        if ( keko.length == koko){
+            tuplaaKoko();
         }
         int i = this.koko-1;
         while (i > 0 && keko[vanhempi(i)].compareTo(siirto) == -1){
@@ -105,15 +108,22 @@ public class Siirtokeko {
      * @return keon huipulla oleva, poistettu siirto
      */
     public Siirto poistaSuurin(){
-        // TOTEUTA!!!
-        return null;
+        Siirto suurin = keko[0];
+        this.koko--;
+        keko[0] = keko[this.koko];
+        heapify(0);
+        return suurin;
     }
     
     /**
      * Lisäyksessä käytettävä metodi, joka tuplaa keon koon jos se tulee täyteen
      */
     private void tuplaaKoko(){
-        // TOTEUTA!!!
+        Siirto[] uusi = new Siirto[keko.length*2];
+        for (int i = 0; i < keko.length; i++){
+            uusi[i] = keko[i];
+        }
+        this.keko = uusi;
     }
     
     /**

@@ -16,10 +16,11 @@ public class DerpyAI {
     private Muodostelma putoava;
     private Siirtokeko keko;
     
-    /*
+    /**
      * Uutta tekoälyluokkaa luotaessa tarvitaan parametrinä peli, jota sen tulee
      * pelata. Lisäksi konstruktorissa luodaan tekoälyn optimointiin käyttämä
      * keko ja päivitetään sen tiedot pelin tilanteesta
+     * @param peli Tetris-luokan ilmentymä, johon tekoäly halutaan liittää
      */
     public DerpyAI(Tetris peli){
         this.peli = peli;
@@ -27,7 +28,7 @@ public class DerpyAI {
         paivitaTiedot();
     }
     
-    /*
+    /**
      * Metodi päivittää pelitilanteen tekoälyn laskentaa varten
      */
     private void paivitaTiedot(){
@@ -35,13 +36,14 @@ public class DerpyAI {
         this.pelipalikat = this.peli.getPalikkaTaulukko();
     }
     
-    /*
+    /**
      * Metodi etsii kaikki mahdolliset siirrot ja lisää ne kekoon:
      * - Ensin lasketaan kaikki lailliset x-sijainnit, ts. sivusuuntainen liike
      * - Toiseksi otetaan huomioon kaikki mahdolliset kierrot
      * - Lisätään kekoon kukin mahdollinen siirto
      */
     private void etsiSiirrot(){
+        paivitaTiedot();
         for (int i = 0; i < 10; i++){ //etsii lailliset x-sijainnit
             Muodostelma muod = putoava.kloonaa();
             // siirrä muodostelma oikeaan kohtaan
@@ -68,26 +70,39 @@ public class DerpyAI {
         }
     }
     
-    /*
-     * Metodi luo Siirto-olion kekoon lisättäväksi
-     * Toistaiseksi vaillinainen toiminnallisuus
+    /**
+     * Laskee uuteen siirtoon tarvittavat parametrit ja luo uuden siirron
+     * sekä lisää sen siirtokekoon
+     * !!Keskeneräinen, ei toimi vielä täysin!!
+     * @param muod käsiteltävä muodostelma
+     * @param kierrot muodostelman kiertojen määrä
      */
     private void laskeSiirto(Muodostelma muod, int kierrot){
         int x = muod.getPalikat().get(1).getX();
         pudotaMuodostelma(muod);
         int y = muod.getPalikat().get(1).getY();
         int sivut = 0; // sivujen laskemiseen tulee oma systeeminsä
-        int rivit = 0; //rivien laskemiseen tulee oma systeeminsä
+        int rivit = laskeRivit(muod);
         Siirto uusi = new Siirto(y, sivut, rivit, x, kierrot);
         this.keko.lisaa(uusi);
     }
     
+    /**
+     * Metodi pudottaa muodostelman suoraan alimpaan mahdolliseen kohtaan sen
+     * senhetkisellä x-sijainnilla
+     * @param muod käsiteltävä muodostelma
+     */
     private void pudotaMuodostelma(Muodostelma muod){
         while(muod.putoaa){
             muod.putoa();
         }
     }
     
+    /**
+     * Metodi siirtää muodostelman haluttuun x-koordinaatin positioon
+     * @param muod käsiteltävä muodostelma
+     * @param x haluttu pivot-palikan x-koordinaatti
+     */
     private void siirraMuodostelma(Muodostelma muod, int x){
         int pivotX = muod.getPalikat().get(1).getX();
         if (x < pivotX){
@@ -111,6 +126,9 @@ public class DerpyAI {
         }
     }
     
+    /**
+     * Metodi hakee keosta parhaan sinne lisätyn siirron ja suorittaa sen
+     */
     public void teeSiirto(){
         etsiSiirrot();
         Siirto paras = this.keko.suurin();
@@ -121,5 +139,15 @@ public class DerpyAI {
         for (int i = 0; i <= kierrot; i++){
             this.putoava.kierra();
         }
+        pudotaMuodostelma(putoava);
+    }
+    
+    /**
+     * KESKENERÄINEN METODI
+     * @param muod
+     * @return 
+     */
+    public int laskeRivit(Muodostelma muod){
+        return 0;
     }
 }
