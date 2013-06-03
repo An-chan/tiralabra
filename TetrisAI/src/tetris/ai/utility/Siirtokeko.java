@@ -35,7 +35,7 @@ public class Siirtokeko {
             tuplaaKoko();
         }
         int i = this.koko-1;
-        while (i > 0 && keko[vanhempi(i)].compareTo(siirto) == -1){
+        while (i > 0 && !keko[vanhempi(i)].suurempiKuin(siirto)){
             keko[i] = keko[vanhempi(i)];
             i = vanhempi(i);
         }
@@ -84,19 +84,19 @@ public class Siirtokeko {
         if (oikeaLapsi <= this.koko){
             Siirto suurempi = null;
             int suurempiInd = 0;
-            if (keko[vasenLapsi].compareTo(keko[oikeaLapsi]) == -1){
+            if (!keko[vasenLapsi].suurempiKuin(keko[oikeaLapsi])){
                 suurempi = keko[oikeaLapsi];
                 suurempiInd = oikeaLapsi;
             } else {
                 suurempi = keko[vasenLapsi];
                 suurempiInd = vasenLapsi;
             }
-            if (keko[i].compareTo(suurempi) == -1){
+            if (!keko[i].suurempiKuin(suurempi)){
                 keko[suurempiInd] = keko[i];
                 keko[i] = suurempi;
                 heapify(suurempiInd);
             }
-        } else if (vasenLapsi == this.koko && keko[i].compareTo(keko[vasenLapsi]) == -1){
+        } else if (vasenLapsi == this.koko && !keko[i].suurempiKuin(keko[vasenLapsi])){
             Siirto temp = keko[vasenLapsi];
             keko[vasenLapsi] = keko[i];
             keko[i] = temp;

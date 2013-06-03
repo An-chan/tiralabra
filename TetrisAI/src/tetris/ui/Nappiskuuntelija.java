@@ -69,6 +69,9 @@ public class Nappiskuuntelija extends KeyAdapter {
             case KeyEvent.VK_PAGE_UP:
                 peli.nostaVaikeustasoa();
                 break;
+            case KeyEvent.VK_ALT:
+                peli.toggleAI();
+                break;
         }
         peli.getAlusta().repaint();
     }

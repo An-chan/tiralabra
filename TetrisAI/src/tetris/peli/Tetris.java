@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JLabel;
+import tetris.ai.DerpyAI;
 import tetris.domain.*;
 import tetris.ui.*;
 
@@ -30,6 +31,8 @@ public class Tetris {
     private JLabel status;
     private JLabel pisteLabel;
     private JLabel tasoLabel;
+    private DerpyAI ai;
+    private boolean onkoAI;
 
     public Tetris() {
         this.pause = false;
@@ -38,6 +41,7 @@ public class Tetris {
         this.taso = 1;
         this.alkutaso = 0;
         this.viive = 2000;
+        this.onkoAI = false;
         this.pelipalikat = new Palikka[20][];
         for (int i = 0; i < 20; i++) {
             pelipalikat[i] = new Palikka[10];
@@ -100,6 +104,9 @@ public class Tetris {
                 status.setText("Paina P pysäyttääksesi pelin");
             }
             this.putoava.putoa();
+            if (this.onkoAI){
+                this.ai.teeSiirto();
+            }
             if (!putoava.putoaa) { // kun putoava muodostelma törmää, sen palikat lisätään pelipalikoihin
                 lisaaPalikatPeliin(putoava.getPalikat());
                 luoUusiPutoava(); // luodaan uusi putoava muodostelma
@@ -164,7 +171,7 @@ public class Tetris {
 
     /**
      * Metodi poistaa täyttyneet rivit pelistä ja laskee niiden yläpuolella
-     * olevia rivejä alas tarvittavan määrän. KESKEN!!
+     * olevia rivejä alas tarvittavan määrän.
      *
      * @param taydet lista poistettavista riveistä
      */
@@ -346,6 +353,19 @@ public class Tetris {
         System.out.println(putoava.putoaa);
         for (Palikka palikka : palikat) {
             System.out.println("X: " + palikka.getX() + ", Y: " + palikka.getY());
+        }
+    }
+    
+    public void lisaaAI(DerpyAI ai){
+        this.ai = ai;
+        this.onkoAI = true;
+    }
+    
+    public void toggleAI(){
+        if (this.onkoAI){
+            this.onkoAI = false;
+        } else {
+            this.onkoAI = true;
         }
     }
 }

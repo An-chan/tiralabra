@@ -46,7 +46,7 @@ public class DerpyAI {
         paivitaTiedot();
         for (int i = 0; i < 10; i++){ //etsii lailliset x-sijainnit
             Muodostelma muod = putoava.kloonaa();
-            // siirrä muodostelma oikeaan kohtaan
+            siirraMuodostelma(muod, i);
             if (muod.getMuoto() == Muoto.nelio){
                 // nelio-muoto aina samanlainen, ts. sillä ei ole kiertoja
                 laskeSiirto(muod, 0);
@@ -147,7 +147,34 @@ public class DerpyAI {
      * @param muod
      * @return 
      */
-    public int laskeRivit(Muodostelma muod){
-        return 0;
+    private int laskeRivit(Muodostelma muod){
+        int rivit = 0;
+        for (int i = 0; i < 4; i++){
+            Palikka p = muod.getPalikat().get(i);
+            int x = p.getX();
+            int y = p.getY();
+            this.pelipalikat[y][x] = p;
+        }
+        for (int i = pelipalikat.length - 1; i >= 0; i--) {
+            if (pelipalikat[i][0] != null) {
+                boolean taysi = true;
+                for (int j = 0; j < pelipalikat[i].length; j++) {
+                    if (pelipalikat[i][j] == null) {
+                        taysi = false;
+                        break;
+                    }
+                }
+                if (taysi) {
+                    rivit++;
+                }
+            }
+        }
+        for (int i = 0; i < 4; i++){
+            Palikka p = muod.getPalikat().get(i);
+            int x = p.getX();
+            int y = p.getY();
+            this.pelipalikat[y][x] = null;
+        }
+        return rivit;
     }
 }

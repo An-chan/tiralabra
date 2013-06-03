@@ -8,7 +8,7 @@ package tetris.ai.utility;
 
 import tetris.domain.*;
 
-public class Siirto implements Comparable<Siirto> {
+public class Siirto{
 
     private int arvo;
     private int korkeus; // muodostelman "keskipalikan" y-sijainti
@@ -38,40 +38,24 @@ public class Siirto implements Comparable<Siirto> {
         return this.arvo;
     }
 
+    
     /**
-     * Tilapäisesti käytössä oleva metodi, joka mahdollistaa siirtokeon
-     * PriorityQueuen käytön. Priorisointi tapahtuu ensisijaisesti arvon
-     * perusteella, toissijaisesti täysien rivien perusteella, sitten sivujen
-     * perusteella, ja lopulta korkeuden perusteella (ts. jos arvo on sama,
-     * katsotaan rivien määrää, jne.)
-     * @param 
+     * 
+     * @param toinen
+     * @return 
      */
-    @Override
-    public int compareTo(Siirto t) {
-        if (this.arvo == t.arvo){
-            if (this.rivit == t.rivit){
-                if (this.sivut == t.sivut){
-                    if (this.korkeus == t.korkeus){
-                        return 0;
-                    } else if (this.korkeus < t.korkeus){
-                        return 1;
-                    } else {
-                        return -1;
-                    }
-                } else if (this.sivut > t.sivut){
-                    return 1;
-                } else {
-                    return -1;
-                }
-            } else if (this.rivit > t.rivit){
-                return 1;
-            } else {
-                return -1;
-            }
-        } else if (this.arvo > t.arvo){
-            return 1;
+    public boolean suurempiKuin(Siirto toinen){
+        if (this.arvo > toinen.arvo){
+            return true;
+        } else if (this.arvo < toinen.arvo){
+            return false;
         } else {
-            return -1;
+            // jos siirroilla on sama arvo, priorisoidaan syntyneiden rivien mukaan
+            if (this.rivit > toinen.rivit){
+                return true;
+            } else {
+                return false;
+            }
         }
     }
     

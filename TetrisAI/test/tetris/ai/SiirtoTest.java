@@ -26,9 +26,9 @@ public class SiirtoTest {
     
     @Before
     public void setUp() {
-        siirto1 = new Siirto(3, 5, 0, 0, 1);
-        siirto2 = new Siirto(4, 3, 0, 0, 2);
-        siirtoRivi = new Siirto(6, 3, 1, 4, 0);
+        siirto1 = new Siirto(3, 5, 0, 0, 1); // arvo 2
+        siirto2 = new Siirto(4, 3, 0, 0, 2); // arvo -1
+        siirtoRivi = new Siirto(6, 3, 1, 4, 0); // arvo 7
     }
     
     @After
@@ -47,10 +47,15 @@ public class SiirtoTest {
      }
      
      @Test
-     public void compareToTempTest(){
-         assertEquals(1, siirtoRivi.compareTo(siirto1));
-         assertEquals(-1, siirto2.compareTo(siirto1));
-         assertEquals(0, siirto1.compareTo(siirto1));
+     public void suurempiKuinTest(){
+         assertEquals(true, siirto1.suurempiKuin(siirto2));
+         assertEquals(false, siirto2.suurempiKuin(siirtoRivi));
+     }
+     
+     @Test
+     public void suurempiKuinArvoSamaTest(){
+         Siirto uusi = new Siirto(9, 2, 0, 0, 0);
+         assertEquals(true, siirtoRivi.suurempiKuin(uusi));
      }
      
      // en ole testannut compareTo:n toimintaa sen enempää toistaiseksi koska
