@@ -142,4 +142,8 @@ public class Palikka {
         g.drawImage(kuva, x*20, y*20, null);
     }
     
+    public Palikka kloonaa(){
+        return new Palikka(this.x, this.y);
+    }
+    
 }

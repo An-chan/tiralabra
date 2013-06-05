@@ -26,12 +26,12 @@ public class Siirto{
      * @param 
      */
     public Siirto(int korkeus, int sivut, int rivit, int x, int kierrot) {
-        this.korkeus = korkeus;
+        this.korkeus = (20-korkeus);
         this.sivut = sivut;
         this.rivit = rivit;
         this.pivotX = x;
         this.kierrot = kierrot;
-        this.arvo = sivut - korkeus + (rivit*10);
+        this.arvo = sivut - this.korkeus + (rivit*10);
     }
     
     public int getArvo(){
@@ -83,6 +83,6 @@ public class Siirto{
     @Override
     public String toString(){
         return "Siirto: "+"x-sijainti: "+this.pivotX+" kierrot: "
-                +this.kierrot+" korkeus: "+this.korkeus;
+                +this.kierrot+" korkeus: "+this.korkeus+ " arvo: " + this.arvo;
     }
 }

@@ -103,7 +103,6 @@ public class Tetris {
                 }
                 status.setText("Paina P pysäyttääksesi pelin");
             }
-            this.putoava.putoa();
             if (this.onkoAI){
                 this.ai.teeSiirto();
             }

@@ -6,6 +6,7 @@
  */
 package tetris.ai;
 
+import java.util.List;
 import tetris.ai.utility.*;
 import tetris.domain.*;
 import tetris.peli.Tetris;
@@ -33,7 +34,16 @@ public class DerpyAI {
      */
     private void paivitaTiedot(){
         this.putoava = peli.getPutoava();
-        this.pelipalikat = this.peli.getPalikkaTaulukko();
+        this.pelipalikat = new Palikka[20][10];
+        Palikka[][] pelip = peli.getPalikkaTaulukko();
+        for (int i = 0; i < pelip.length; i++){
+            for (int j = 0; j < pelip[i].length ; j++){
+                if (pelip[i][j] != null){
+                    pelipalikat[i][j] = pelip[i][j].kloonaa();
+                }
+                pelipalikat[i][j] = pelip[i][j];
+            }
+        }
     }
     
     /**
@@ -46,25 +56,42 @@ public class DerpyAI {
         paivitaTiedot();
         for (int i = 0; i < 10; i++){ //etsii lailliset x-sijainnit
             Muodostelma muod = putoava.kloonaa();
-            siirraMuodostelma(muod, i);
             if (muod.getMuoto() == Muoto.nelio){
                 // nelio-muoto aina samanlainen, ts. sillä ei ole kiertoja
+                siirraMuodostelma(muod, i);
                 laskeSiirto(muod, 0);
-            } else if (muod.getMuoto() == Muoto.S || 
-                    muod.getMuoto() == Muoto.peiliS || muod.getMuoto() == Muoto.I){
+            } else if (muod.getMuoto() == Muoto.S || muod.getMuoto() == Muoto.peiliS){
                 // näillä muodoilla vain kaksi eri orientaatiota
+                siirraMuodostelma(muod, i);
                 laskeSiirto(muod, 0);
+                muod.putoa();
                 muod.kierra();
+                siirraMuodostelma(muod, i);
+                laskeSiirto(muod, 1);
+            } else if (muod.getMuoto() == Muoto.I){
+                // I-muodolla myös vain kaksi orientaatiota
+                siirraMuodostelma(muod, i);
+                laskeSiirto(muod, 0);
+                muod.putoa();
+                muod.putoa();
+                muod.kierra();
+                siirraMuodostelma(muod, i);
                 laskeSiirto(muod, 1);
             } else {
-                Muodostelma kopio = muod.kloonaa();
                 // lopuilla muodoilla kaikki neljä orientaatiota
-                kopio.putoa();
-                for (int j = 0; j < 4; j++){
-                    for (int k = 0; k < j; k++){
-                        kopio.kierra();
+                siirraMuodostelma(muod, i);
+                laskeSiirto(muod, 0);
+                muod.putoa();
+                for (int j = 1; j < 4; j++){
+                    if (i == 9){
+                        siirraMuodostelma(muod, i-1);
                     }
-                    laskeSiirto(kopio, j);
+                    if (i == 0){
+                        siirraMuodostelma(muod, i+1);
+                    }
+                    muod.kierra();
+                    siirraMuodostelma(muod, i);
+                    laskeSiirto(muod, j);
                 }
             }
         }
@@ -78,11 +105,12 @@ public class DerpyAI {
      * @param kierrot muodostelman kiertojen määrä
      */
     private void laskeSiirto(Muodostelma muod, int kierrot){
-        int x = muod.getPalikat().get(1).getX();
-        pudotaMuodostelma(muod);
-        int y = muod.getPalikat().get(1).getY();
-        int sivut = 0; // sivujen laskemiseen tulee oma systeeminsä
-        int rivit = laskeRivit(muod);
+        Muodostelma kopio = muod.kloonaa();
+        int x = kopio.getPalikat().get(1).getX();
+        pudotaMuodostelma(kopio); //mitä täällä tapahtuu?
+        int y = kopio.getPalikat().get(1).getY();
+        int sivut = laskeSivut(kopio);
+        int rivit = laskeRivit(kopio);
         Siirto uusi = new Siirto(y, sivut, rivit, x, kierrot);
         this.keko.lisaa(uusi);
     }
@@ -92,9 +120,19 @@ public class DerpyAI {
      * senhetkisellä x-sijainnilla
      * @param muod käsiteltävä muodostelma
      */
-    private void pudotaMuodostelma(Muodostelma muod){
+    void pudotaMuodostelma(Muodostelma muod){
         while(muod.putoaa){
             muod.putoa();
+        }
+    }
+    
+    /**
+     * Debuggaamiseen
+     * @param muod 
+     */
+    void lisaaKentalle(List<Palikka> palikat){
+        for (int i = 0; i < palikat.size(); i++){
+            this.pelipalikat[palikat.get(i).getY()][palikat.get(i).getX()] = palikat.get(i);
         }
     }
     
@@ -103,7 +141,7 @@ public class DerpyAI {
      * @param muod käsiteltävä muodostelma
      * @param x haluttu pivot-palikan x-koordinaatti
      */
-    private void siirraMuodostelma(Muodostelma muod, int x){
+    void siirraMuodostelma(Muodostelma muod, int x){
         int pivotX = muod.getPalikat().get(1).getX();
         if (x < pivotX){
             while (x < pivotX){
@@ -134,20 +172,29 @@ public class DerpyAI {
         Siirto paras = this.keko.suurin();
         int x = paras.getX();
         int kierrot = paras.getKierrot();
-        siirraMuodostelma(this.putoava, x);
         this.putoava.putoa();
-        for (int i = 0; i <= kierrot; i++){
-            this.putoava.kierra();
+        if (kierrot > 0){
+            for (int i = 0; i < kierrot; i++){
+                this.putoava.kierra();
+            }
         }
+        siirraMuodostelma(this.putoava, x);
+        System.out.println("x: " + this.putoava.getPalikat().get(1).getX());
         pudotaMuodostelma(putoava);
+        this.keko.tyhjenna();
+        System.out.println(paras.toString());
     }
     
     /**
      * KESKENERÄINEN METODI
-     * @param muod
-     * @return 
+     * Metodi laskee, montako täyttä riviä siirrolla saadaan aikaiseksi. Tämän
+     * tehdäkseen se liittää ensin kaikki muodostelman palikat kentälle, laskee
+     * täydet rivit, ja poistaa palikat lopuksi kentältä, jotta ne eivät sotke
+     * tulevia laskuja.
+     * @param muod käsiteltävä muodostelma
+     * @return täysien rivien määrä
      */
-    private int laskeRivit(Muodostelma muod){
+    int laskeRivit(Muodostelma muod){
         int rivit = 0;
         for (int i = 0; i < 4; i++){
             Palikka p = muod.getPalikat().get(i);
@@ -176,5 +223,52 @@ public class DerpyAI {
             this.pelipalikat[y][x] = null;
         }
         return rivit;
+    }
+
+    /**
+     * KESKENERÄINEN METODI
+     * 
+     * @param kopio
+     * @return 
+     */
+    int laskeSivut(Muodostelma muod) {
+        int sivut = 0;
+        List<Palikka> palikat = muod.getPalikat();
+        for (int i = 0; i < palikat.size(); i++){
+            int x = palikat.get(i).getX();
+            int y = palikat.get(i).getY();
+            if (x + 1 > 9){
+                sivut ++;
+            } else if (this.pelipalikat[y][x+1] != null){
+                sivut ++;
+            }
+            if (x - 1 < 0){
+                sivut ++;
+            } else if (this.pelipalikat[y][x-1] != null){
+                sivut ++;
+            }
+            if (y + 1 > 19){
+                sivut ++;
+            } else if (this.pelipalikat[y+1][x] != null){
+                sivut ++;
+            }
+        }
+        return sivut; 
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public Siirtokeko getKeko(){
+        return this.keko;
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public Muodostelma getMuodostelma(){
+        return this.putoava;
     }
 }

@@ -271,8 +271,8 @@ public class Muodostelma {
     }
     
     public void tormays(List<Palikka> palikkalista){
-        for (Palikka palikka : palikat) {
-            if(palikka.tormaa(palikkalista)){
+        for (int i = 0; i < this.palikat.size(); i++){
+            if(palikat.get(i).tormaa(palikkalista)){
                 this.putoaa=false;
                 return;
             }
@@ -335,7 +335,11 @@ public class Muodostelma {
      * @return Muodostelma kopio tästä muodostelmasta
      */
     public Muodostelma kloonaa(){
-        return new Muodostelma(this.muoto, this.peli, this.palikat);
+        ArrayList<Palikka> kloonipalikat = new ArrayList<Palikka>();
+        for (int i = 0; i < this.palikat.size(); i++){
+            kloonipalikat.add(palikat.get(i).kloonaa());
+        }
+        return new Muodostelma(this.muoto, this.peli, kloonipalikat);
     }
     
     public Muoto getMuoto(){
