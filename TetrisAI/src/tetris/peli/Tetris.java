@@ -106,6 +106,7 @@ public class Tetris {
             if (this.onkoAI){
                 this.ai.teeSiirto();
             }
+            this.putoava.putoa();
             if (!putoava.putoaa) { // kun putoava muodostelma törmää, sen palikat lisätään pelipalikoihin
                 lisaaPalikatPeliin(putoava.getPalikat());
                 luoUusiPutoava(); // luodaan uusi putoava muodostelma

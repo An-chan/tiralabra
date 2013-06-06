@@ -104,7 +104,7 @@ public class DerpyAI {
      * @param muod käsiteltävä muodostelma
      * @param kierrot muodostelman kiertojen määrä
      */
-    private void laskeSiirto(Muodostelma muod, int kierrot){
+    void laskeSiirto(Muodostelma muod, int kierrot){
         Muodostelma kopio = muod.kloonaa();
         int x = kopio.getPalikat().get(1).getX();
         pudotaMuodostelma(kopio); //mitä täällä tapahtuu?
@@ -179,14 +179,13 @@ public class DerpyAI {
             }
         }
         siirraMuodostelma(this.putoava, x);
-        System.out.println("x: " + this.putoava.getPalikat().get(1).getX());
+//        System.out.println("x: " + this.putoava.getPalikat().get(1).getX());
         pudotaMuodostelma(putoava);
         this.keko.tyhjenna();
-        System.out.println(paras.toString());
+//        System.out.println(paras.toString());
     }
     
     /**
-     * KESKENERÄINEN METODI
      * Metodi laskee, montako täyttä riviä siirrolla saadaan aikaiseksi. Tämän
      * tehdäkseen se liittää ensin kaikki muodostelman palikat kentälle, laskee
      * täydet rivit, ja poistaa palikat lopuksi kentältä, jotta ne eivät sotke
@@ -226,10 +225,11 @@ public class DerpyAI {
     }
 
     /**
-     * KESKENERÄINEN METODI
-     * 
-     * @param kopio
-     * @return 
+     * Metodi laskee monellako sivullaan käsiteltävä muodostelma
+     * koskettaa joko jo pelissä olevia palikoita tai pelialueen
+     * reunoja. 
+     * @param muod käsiteltävä muodostelma
+     * @return kontaktisivujen määrä
      */
     int laskeSivut(Muodostelma muod) {
         int sivut = 0;
@@ -257,16 +257,16 @@ public class DerpyAI {
     }
     
     /**
-     * 
-     * @return 
+     * Palauttaa tekoälyn keon debuggaamista varten
+     * @return tekoälyn käyttämä keko
      */
     public Siirtokeko getKeko(){
         return this.keko;
     }
     
     /**
-     * 
-     * @return 
+     * Palauttaa senhetkisen muodostelman
+     * @return käsittelyssä oleva muodostelma
      */
     public Muodostelma getMuodostelma(){
         return this.putoava;
