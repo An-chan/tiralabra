@@ -257,6 +257,17 @@ public class DerpyAI {
     }
     
     /**
+     * KESKEN
+     * @param muod
+     * @return 
+     */
+    int laskeKolot(Muodostelma muod){
+        // metodi laskee muodostelman alle jäävät tyhjät ruudut
+        return 0;
+        
+    }
+    
+    /**
      * Palauttaa tekoälyn keon debuggaamista varten
      * @return tekoälyn käyttämä keko
      */
