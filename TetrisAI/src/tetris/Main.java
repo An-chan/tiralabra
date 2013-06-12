@@ -12,7 +12,7 @@ public class Main {
         Tetris tetris = new Tetris();
         Kayttoliittyma kayttoliittyma = new Kayttoliittyma(tetris);
         SwingUtilities.invokeLater(kayttoliittyma);
-        DerpyAI ai = new DerpyAI(tetris);
+        PegasusAI ai = new PegasusAI(tetris);
         tetris.lisaaAI(ai);
         while (true){
             tetris.peliSykli();

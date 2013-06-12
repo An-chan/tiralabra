@@ -299,6 +299,10 @@ public class Muodostelma {
         return this.palikat;
     }
     
+    public Palikka getPivot(){
+        return this.palikat.get(1);
+    }
+    
     /**
      * Metodi on siirtämistä varten tarkoitettu tarkistus, jossa katsotaan missä
      * muodostelman kaikkein vasemmanpuoleisin palikka sijaitsee.

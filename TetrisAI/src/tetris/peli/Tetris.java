@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JLabel;
-import tetris.ai.DerpyAI;
+import tetris.ai.PegasusAI;
 import tetris.domain.*;
 import tetris.ui.*;
 
@@ -31,7 +31,7 @@ public class Tetris {
     private JLabel status;
     private JLabel pisteLabel;
     private JLabel tasoLabel;
-    private DerpyAI ai;
+    private PegasusAI ai;
     private boolean onkoAI;
 
     public Tetris() {
@@ -356,7 +356,7 @@ public class Tetris {
         }
     }
     
-    public void lisaaAI(DerpyAI ai){
+    public void lisaaAI(PegasusAI ai){
         this.ai = ai;
         this.onkoAI = true;
     }

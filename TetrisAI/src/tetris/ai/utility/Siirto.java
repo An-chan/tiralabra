@@ -16,6 +16,7 @@ public class Siirto{
     private int rivit; // siirron muodostamien täysien rivien määrä
     private int pivotX; // muodostelman "keskipalikan" x-sijainti
     private int kierrot; // tehtyjen kiertojen määrä
+    private int kolot;
 
     /**
      * Konstruktori luo uuden Siirron ja laskee sille arvon annettujen parametrien
@@ -25,24 +26,32 @@ public class Siirto{
      * Kaava saattaa vielä muuttua paljonkin.
      * @param 
      */
-    public Siirto(int korkeus, int sivut, int rivit, int x, int kierrot) {
+    public Siirto(int korkeus, int sivut, int rivit, int x, int kierrot, int kolot) {
         this.korkeus = (20-korkeus);
         this.sivut = sivut;
         this.rivit = rivit;
         this.pivotX = x;
         this.kierrot = kierrot;
-        this.arvo = sivut - this.korkeus + (rivit*10);
+        this.kolot = kolot;
+        this.arvo = sivut - this.korkeus - this.kolot + (rivit*2);
     }
     
+    /**
+     * Palauttaa siirron arvon debuggaamista varten
+     */
     public int getArvo(){
         return this.arvo;
     }
 
     
     /**
-     * 
-     * @param toinen
-     * @return 
+     * Vertaa siirtoa parametrinä annettuun siirtoon ja palauttaa
+     * true jos tämä siirto on arvoltaan suurempi (parempi) kuin parametrinä
+     * annettu ja false jos taas parametrinä annettu on arvoltaan suurempi.
+     * Suuruus/paremmuus määritetään ensisijaisesti arvon perusteella, mutta
+     * arvojen ollessa samat verrataan syntyvien rivien määrää.
+     * @param toinen siirto, johon halutaan verrata
+     * @return true jos tämä siirto on suurempi, false jos ei
      */
     public boolean suurempiKuin(Siirto toinen){
         if (this.arvo > toinen.arvo){
@@ -76,8 +85,8 @@ public class Siirto{
     }
     
     /**
-     * Testaukseen tarkoitettu toString, joka kertoo siirron ominaisuuksista
-     * sitä tulostettaessa
+     * Testaukseen tarkoitettu metodi joka muuntaa siirron ominaisuudet
+     * string-muotoon.
      * @return String Siirron tekstiesitys
      */
     @Override

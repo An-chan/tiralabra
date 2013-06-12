@@ -1,0 +1,74 @@
+AI A - rivi 10p, kolot -5p
+1	34
+2	15 !!!
+3	16
+4	18
+5	16
+KA	19,8
+
+AI B - rivi 10p, kolot -2p
+1	344
+2	145
+3	48
+4	226
+5	186
+KA	189,8
+
+1	152
+2	315
+
+AI C - rivi 5p, kolot -2p
+1	213
+2	81
+3	85
+4	91
+5	469
+KA	187,8
+
+1	49
+2	209
+
+AI D - rivi 1p, kolot -1p
+1	462
+2	158
+3	210
+4	139
+5	141
+KA	222
+
+AI E - rivi 2p, kolot -1p
+1	157
+2	151
+3	261
+4	570 !!!
+5	140
+KA	255,8
+
+1	325
+2	279
+
+AI F - rivi 10p, kolot -1p
+1	555
+2	226
+3	78
+4	165
+5	190
+KA	242,8
+
+AI ilman kolojen tarkastusta
+1	130
+2	290
+3	149
+KA	189,7
+
+Ihmispelaaja A
+1	141
+2	104
+3	93
+KA	112,7
+
+Ihmispelaaja B
+1	-
+2	-
+3	-
+KA	?

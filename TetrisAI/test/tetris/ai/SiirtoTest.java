@@ -26,9 +26,9 @@ public class SiirtoTest {
     
     @Before
     public void setUp() {
-        siirto1 = new Siirto(17, 5, 0, 0, 1); // arvo 2
-        siirto2 = new Siirto(16, 3, 0, 0, 2); // arvo -1
-        siirtoRivi = new Siirto(14, 3, 1, 4, 0); // arvo 7
+        siirto1 = new Siirto(17, 5, 0, 0, 1, 0); // arvo 2
+        siirto2 = new Siirto(16, 3, 0, 0, 2, 0); // arvo -1
+        siirtoRivi = new Siirto(17, 3, 1, 4, 0, 0); // arvo 2
     }
     
     @After
@@ -43,7 +43,7 @@ public class SiirtoTest {
      
      @Test
      public void arvoLasketaanOikeinKunRivejaPoistuuTest(){
-         assertEquals(7, siirtoRivi.getArvo());
+         assertEquals(2, siirtoRivi.getArvo());
      }
      
      @Test
@@ -54,7 +54,7 @@ public class SiirtoTest {
      
      @Test
      public void suurempiKuinArvoSamaTest(){
-         Siirto uusi = new Siirto(9, 2, 0, 0, 0);
+         Siirto uusi = new Siirto(9, 2, 0, 0, 0, 0);
          assertEquals(true, siirtoRivi.suurempiKuin(uusi));
      }
 

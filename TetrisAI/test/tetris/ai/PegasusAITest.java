@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package tetris.ai;
 
 import java.util.ArrayList;
@@ -18,17 +15,17 @@ import tetris.peli.Tetris;
  *
  * @author Anni
  */
-public class DerpyAITest {
+public class PegasusAITest {
     
-    public DerpyAITest() {
+    public PegasusAITest() {
     }
-    DerpyAI ai;
+    PegasusAI ai;
     Tetris peli;
     
     @Before
     public void setUp() {
         peli = new Tetris();
-        ai = new DerpyAI(peli);
+        ai = new PegasusAI(peli);
     }
     
     @After

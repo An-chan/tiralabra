@@ -20,8 +20,8 @@ public class SiirtokekoTest {
     @Before
     public void setUp() {
         keko = new Siirtokeko();
-        siirto1 = new Siirto(18, 3, 0, 1, 0);
-        siirto2 = new Siirto(17, 2, 0, 1, 0);
+        siirto1 = new Siirto(18, 3, 0, 1, 0, 0); // arvo 1
+        siirto2 = new Siirto(17, 2, 0, 1, 0, 0); // arvo -1
     }
     
     @After
@@ -76,13 +76,13 @@ public class SiirtokekoTest {
      
      @Test
      public void suurempiKekoPalauttaaSurimmanTest(){
-         Siirto siirt1 = new Siirto(19,4,0,5,1); // arvo 4
-         Siirto siirt2 = new Siirto(18,5,0,0,1); // arvo 4
-         Siirto siirt3 = new Siirto(18,2,1,2,3); // arvo 11
-         Siirto siirt4 = new Siirto(14,5,0,8,2); // arvo -1
-         Siirto siirt5 = new Siirto(16,1,1,6,2); // arvo 7
-         Siirto siirt6 = new Siirto(11,3,1,7,0); // arvo 4
-         Siirto siirt7 = new Siirto(8,2,0,3,0); // arvo -10
+         Siirto siirt1 = new Siirto(19,4,0,5,1,0); // arvo 3
+         Siirto siirt2 = new Siirto(18,3,1,0,1,0); // arvo 3
+         Siirto siirt3 = new Siirto(18,2,1,2,3,2); // arvo 0
+         Siirto siirt4 = new Siirto(14,5,0,8,2,1); // arvo -2
+         Siirto siirt5 = new Siirto(16,1,1,6,2,0); // arvo -2
+         Siirto siirt6 = new Siirto(11,3,1,7,0,1); // arvo -5
+         Siirto siirt7 = new Siirto(8,2,0,3,0,0); // arvo -10
          keko.lisaa(siirt1);
          keko.lisaa(siirt2);
          keko.lisaa(siirt3);
@@ -90,13 +90,13 @@ public class SiirtokekoTest {
          keko.lisaa(siirt5);
          keko.lisaa(siirt6);
          keko.lisaa(siirt7);
-         assertEquals(siirt3, keko.suurin());
+         assertEquals(siirt2, keko.suurin());
      }
      
      @Test
      public void keonKasvatusToimiiOikeinTest(){
-         Siirto siirt1 = new Siirto(11,3,1,7,0); // arvo 4
-         Siirto siirt2 = new Siirto(8,2,0,3,0); // arvo -10
+         Siirto siirt1 = new Siirto(11,3,1,7,0, 0); // arvo 4
+         Siirto siirt2 = new Siirto(8,2,0,3,0, 0); // arvo -10
          for (int i = 0; i < 10; i++){
              keko.lisaa(siirt2);
          }
@@ -106,30 +106,30 @@ public class SiirtokekoTest {
      
      @Test
      public void poistaSuurinToimiiPieniTest(){
-         Siirto siirt1 = new Siirto(19,5,0,0,1); // arvo 4
-         Siirto siirt2 = new Siirto(19,2,1,2,3); // arvo 11
-         Siirto siirt3 = new Siirto(14,5,0,8,2); // arvo -1
+         Siirto siirt1 = new Siirto(19,5,0,0,1, 0); // arvo 4
+         Siirto siirt2 = new Siirto(19,2,1,2,3, 0); // arvo 11
+         Siirto siirt3 = new Siirto(14,5,0,8,2, 0); // arvo -1
          keko.lisaa(siirt1);
          keko.lisaa(siirt2);
          keko.lisaa(siirt3);
          Siirto suurin = keko.poistaSuurin();
          assertEquals(2, keko.koko());
-         assertEquals(siirt2, suurin);
+         assertEquals(siirt1, suurin);
      }
      
      @Test
      public void poistaSuurinKekoehtoVoimassaTest(){
-         Siirto siirt1 = new Siirto(19,5,0,0,1); // arvo 4
-         Siirto siirt2 = new Siirto(19,2,1,2,3); // arvo 11
-         Siirto siirt3 = new Siirto(14,5,0,8,2); // arvo -1
+         Siirto siirt1 = new Siirto(19,4,0,5,1,0); // arvo 3
+         Siirto siirt2 = new Siirto(14,5,0,8,2,1); // arvo -2
+         Siirto siirt3 = new Siirto(18,2,1,2,3,2); // arvo 0
          keko.lisaa(siirt1);
          keko.lisaa(siirt2);
          keko.lisaa(siirt3);
          keko.poistaSuurin();
          Siirto toinen = keko.poistaSuurin();
          Siirto kolmas = keko.poistaSuurin();
-         assertEquals(siirt1, toinen);
-         assertEquals(siirt3, kolmas);
+         assertEquals(siirt3, toinen);
+         assertEquals(siirt2, kolmas);
          assertEquals(0, keko.koko());
      }
 }
