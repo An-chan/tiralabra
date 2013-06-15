@@ -68,9 +68,9 @@ public class Kayttoliittyma implements Runnable {
         JPanel sivupaneeli = new JPanel();
         sivupaneeli.setLayout(new GridLayout(5, 1));
         sivupaneeli.setSize(100, 100);
-        JLabel pisteetLabel = new JLabel("Pisteet");
+        JLabel pisteetLabel = new JLabel("--Rivit--");
         JLabel pisteet = new JLabel();
-        JLabel tasoLabel = new JLabel("Taso");
+        JLabel tasoLabel = new JLabel("Nopeus");
         JLabel taso = new JLabel();
         peli.setLabels(pisteet, taso);
         

@@ -215,13 +215,20 @@ public class PegasusAI {
      */
     int laskeRivit(Muodostelma muod) {
         int rivit = 0;
+        int korkeinY = 19;
+        int matalinY = 0;
         for (int i = 0; i < 4; i++) {
             Palikka p = muod.getPalikat().get(i);
             int x = p.getX();
             int y = p.getY();
+            if (y < korkeinY){
+                korkeinY = y;
+            } else if (y > matalinY){
+                matalinY = y;
+            }
             this.pelipalikat[y][x] = p;
         }
-        for (int i = pelipalikat.length - 1; i >= 0; i--) {
+        for (int i = matalinY; i >= korkeinY; i--) {
             if (pelipalikat[i][0] != null) {
                 boolean taysi = true;
                 for (int j = 0; j < pelipalikat[i].length; j++) {

@@ -26,6 +26,7 @@ public class Tetris {
     private boolean pause;
     private boolean jatkuu;
     private int pisteet;
+    private int rivit;
     private int taso;
     private int alkutaso;
     private JLabel status;
@@ -39,6 +40,7 @@ public class Tetris {
         this.jatkuu = true;
         this.pisteet = 0;
         this.taso = 1;
+        this.rivit = 0;
         this.alkutaso = 0;
         this.viive = 2000;
         this.onkoAI = false;
@@ -192,6 +194,7 @@ public class Tetris {
             }
         }
         this.pisteet += 100 * taydet.size();
+        this.rivit += taydet.size();
         laskeTaso();
         paivitaPisteetJaTaso();
     }
@@ -237,6 +240,15 @@ public class Tetris {
         paivitaPisteetJaTaso();
     }
     
+    public void laskeVaikeustasoa(){
+        if (this.alkutaso <= 1){
+            return;
+        }
+        this.alkutaso--;
+        laskeTaso();
+        paivitaPisteetJaTaso();
+    }
+    
     /**
      * Metodi lähettää tämänhetkisen pistetilanteen käyttöliittymään
      * pelaajalle näytettäväksi.
@@ -245,7 +257,7 @@ public class Tetris {
         if (this.pisteLabel == null | this.tasoLabel == null){
             return;
         }
-        this.pisteLabel.setText(""+this.pisteet);
+        this.pisteLabel.setText(""+this.rivit);
         this.tasoLabel.setText(""+this.taso);
     }
 
@@ -292,6 +304,7 @@ public class Tetris {
         this.jatkuu = true;
         this.pisteet = 0;
         this.taso = 1;
+        this.rivit = 0;
         this.alkutaso = 0;
         this.viive = 2000;
         this.pelipalikat = new Palikka[20][];
