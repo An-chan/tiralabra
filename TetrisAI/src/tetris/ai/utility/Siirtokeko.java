@@ -12,8 +12,8 @@ public class Siirtokeko {
     private int koko;
     
     /**
-     * Konstruktori luo uuden keon, jonka koko on nolla, mutta potentiaalinen
-     * koko 40 (voi vielä muuttua)
+     * Konstruktori luo uuden keon, jonka koko on nolla ja jossa on aluksi
+     * tilaa kymmenelle alkiolle.
      */
     public Siirtokeko(){
         this.keko = new Siirto[10];
@@ -22,8 +22,10 @@ public class Siirtokeko {
     
     /**
      * Metodi lisää kekoon uuden siirto-olion ja varmistaa, että
-     * keko-ehto on lisäyksen jälkeen voimassa
-     * @param siirto kekoon lisättävä siirto-olio
+     * kekoehto on lisäyksen jälkeen edelleen voimassa. Mikäli keossa
+     * ei enää ole tilaa uusille siirroille, kasvatetaan sen kokoa
+     * kaksinkertaiseksi ennen lisäystä.
+     * @param siirto - kekoon lisättävä siirto-olio
      */
     public void lisaa(Siirto siirto){
         this.koko++;
@@ -45,7 +47,7 @@ public class Siirtokeko {
     /**
      * Metodi palauttaa keon suurimman siirron, ts. sen, jolla on
      * paras kokonaispistemäärä. Huom: metodi EI poista oliota keosta!
-     * @return Siirto keon huipulla oleva siirto
+     * @return Siirto - keon huipulla oleva siirto
      */
     public Siirto suurin(){
         if (koko == 0){
@@ -67,7 +69,7 @@ public class Siirtokeko {
     /**
      * Metodi palauttaa keossa sillä hetkellä olevien siirtojen määrän, ts.
      * keon senhetkisen koon.
-     * @return int keon koko
+     * @return int - keon koko
      */
     public int koko(){
         return this.koko;
@@ -76,27 +78,27 @@ public class Siirtokeko {
     /**
      * Palauttaa kekoehdon voimaan mikäli se on jostakin muutoksesta rikkoontunut.
      * Metodi on rekursiivinen.
-     * @param i indeksi, josta kekoehdon palauttaminen aloitetaan
+     * @param i - indeksi, josta kekoehdon palauttaminen aloitetaan
      */
     private void heapify(int i){
         int vasenLapsi = vasenLapsi(i);
         int oikeaLapsi = oikeaLapsi(i);
-        if (oikeaLapsi <= this.koko){
+        if (oikeaLapsi < this.koko){
             Siirto suurempi = null;
             int suurempiInd = 0;
-            if (!keko[vasenLapsi].suurempiKuin(keko[oikeaLapsi])){
+            if (keko[oikeaLapsi].suurempiKuin(keko[vasenLapsi])){
                 suurempi = keko[oikeaLapsi];
                 suurempiInd = oikeaLapsi;
             } else {
                 suurempi = keko[vasenLapsi];
                 suurempiInd = vasenLapsi;
             }
-            if (!keko[i].suurempiKuin(suurempi)){
+            if (suurempi.suurempiKuin(keko[i])){
                 keko[suurempiInd] = keko[i];
                 keko[i] = suurempi;
                 heapify(suurempiInd);
             }
-        } else if (vasenLapsi == this.koko && !keko[i].suurempiKuin(keko[vasenLapsi])){
+        } else if (vasenLapsi == this.koko && keko[vasenLapsi].suurempiKuin(keko[i])){
             Siirto temp = keko[vasenLapsi];
             keko[vasenLapsi] = keko[i];
             keko[i] = temp;
@@ -104,8 +106,9 @@ public class Siirtokeko {
     }
     
     /**
-     * Metodi palauttaa ja sitten poistaa keon parhaan siirron.
-     * @return keon huipulla oleva, poistettu siirto
+     * Metodi poistaa keon parhaan siirron keosta ja palauttaa sen
+     * paluuarvona.
+     * @return Siirto - keon huipulla oleva siirto, joka poistettiin
      */
     public Siirto poistaSuurin(){
         Siirto suurin = keko[0];
@@ -116,7 +119,7 @@ public class Siirtokeko {
     }
     
     /**
-     * Lisäyksessä käytettävä metodi, joka tuplaa keon koon jos se tulee täyteen
+     * Lisäyksessä käytettävä metodi, joka tuplaa keon koon jos se on täysi
      */
     private void tuplaaKoko(){
         Siirto[] uusi = new Siirto[keko.length*2];
@@ -127,18 +130,18 @@ public class Siirtokeko {
     }
     
     /**
-     * Vasemman lapsen laskemiseen tarkoitettu metodi
-     * @param i vanhemman indeksi
-     * @return int halutun lapsen indeksi
+     * Vasemman lapsen indeksin laskemiseen tarkoitettu metodi
+     * @param i - vanhemman indeksi
+     * @return int - halutun lapsen indeksi
      */
     private int vasenLapsi(int i){
         return i*2;
     }
     
     /**
-     * Oikean lapsen laskemiseen tarkoitettu metodi
-     * @param i vanhemman indeksi
-     * @return int halutun lapsen indeksi
+     * Oikean lapsen indeksin laskemiseen tarkoitettu metodi
+     * @param i - vanhemman indeksi
+     * @return int - halutun lapsen indeksi
      */
     private int oikeaLapsi(int i){
         return i*2+1;
@@ -146,8 +149,8 @@ public class Siirtokeko {
     
     /**
      * Vanhemman indeksin laskemiseen tarkoitettu metodi
-     * @param i indeksi, jonka vanhempi halutaan löytää
-     * @return int vanhemman indeksi
+     * @param i - indeksi, jonka vanhempi halutaan löytää
+     * @return int - vanhemman indeksi
      */
     private int vanhempi(int i){
         return i/2;

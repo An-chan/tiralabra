@@ -12,11 +12,9 @@ public class Siirto{
 
     private int arvo;
     private int korkeus; // muodostelman "keskipalikan" y-sijainti
-    private int sivut;
     private int rivit; // siirron muodostamien täysien rivien määrä
     private int pivotX; // muodostelman "keskipalikan" x-sijainti
     private int kierrot; // tehtyjen kiertojen määrä
-    private int kolot;
 
     /**
      * Konstruktori luo uuden Siirron ja laskee sille arvon annettujen parametrien
@@ -28,12 +26,10 @@ public class Siirto{
      */
     public Siirto(int korkeus, int sivut, int rivit, int x, int kierrot, int kolot) {
         this.korkeus = (20-korkeus);
-        this.sivut = sivut;
         this.rivit = rivit;
         this.pivotX = x;
         this.kierrot = kierrot;
-        this.kolot = kolot;
-        this.arvo = sivut - this.korkeus - this.kolot + (rivit*2);
+        this.arvo = sivut - this.korkeus - kolot + (rivit*2);
     }
     
     /**

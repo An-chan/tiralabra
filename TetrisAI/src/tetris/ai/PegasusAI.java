@@ -314,7 +314,7 @@ public class PegasusAI {
     /**
      * Palauttaa tekoälyn käyttämän keon debuggaamista varten
      *
-     * @return tekoälyn käyttämä keko
+     * @return Siirtokeko - tekoälyn käyttämä keko
      */
     public Siirtokeko getKeko() {
         return this.keko;
